@@ -60,5 +60,6 @@ function solveTask8() {
 
 function solveTask9() {
   let element = document.getElementById("task9");
-  element.parentNode.removeChild(element);
+  // parentElement or parentNode
+  element.parentElement.removeChild(element);
 }
