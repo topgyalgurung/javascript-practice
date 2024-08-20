@@ -1,8 +1,8 @@
 """Models for Cupcake app."""
 
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import Integer, Text, Float
+# from sqlalchemy.orm import Mapped, mapped_column
+# from sqlalchemy import Integer, Text, Float
 
 db = SQLAlchemy()
 

@@ -1,25 +1,22 @@
 """Flask app for Cupcakes"""
-import os
+
 from models import db, Cupcake, connect_db
 from flask import Flask, jsonify, request, render_template
-from sqlalchemy.sql import func # to access sql functions 
+from flask_sqlalchemy import SQLAlchemy
 
 
 # configure extension
 app = Flask(__name__)
 
 # basedir = os.path.abspath(os.path.dirname(__file__))
-
 # app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///' + os.path.join(basedir, 'cupcakes.db')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///cupcakes'
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://topgyal:Topgyal*123@localhost/cupcakes'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # app.config['SECRET_KEY'] = "random-secret-key"
 
 connect_db(app)
 
-# Create the database and tables
-with app.app_context():
-    db.create_all()
 
 ## PART 2: Listing, Getting & Creating Cupcakes 
 
@@ -79,7 +76,7 @@ def update_cupcake(cupcake_id):
 
     return jsonify(cupcake=cupcake.to_dict())
 
-@app.route('/api/routes/<id:cupcake_id>',methods=['DELETE'])
+@app.route('/api/routes/<int:cupcake_id>',methods=['DELETE'])
 def delete_cupcake(cupcake_id):
     cupcake = Cupcake.query.get_or_404(cupcake_id)
     
