@@ -1,0 +1,12 @@
+/env
+.env
+.venv
+venv/
+.DS_Store
+.db
+
+__pycache__/
+
+# Flask stuff:
+instance/
+.webassets-cache
