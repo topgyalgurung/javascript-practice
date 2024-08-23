@@ -17,6 +17,11 @@ with app.app_context():
         rating=9,
         image="https://www.bakedbyrachel.com/wp-content/uploads/2018/01/chocolatecupcakesccfrosting1_bakedbyrachel.jpg"
     )
+    c1 = Cupcake(
+        flavor="vanilla",
+        size="medium",
+        rating = 10
+    )
 
     db.session.add_all([c1, c2])
     db.session.commit()

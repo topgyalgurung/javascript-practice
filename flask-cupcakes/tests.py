@@ -4,7 +4,7 @@ from app import app
 from models import db, Cupcake
 
 # Use test database and don't clutter tests with SQL
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///cupcakes_test'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://topgyal:Topgyal*123@localhost/test_cupcakes'
 app.config['SQLALCHEMY_ECHO'] = False
 
 # Make Flask errors be real errors, rather than HTML pages with error info
@@ -36,6 +36,7 @@ with app.app_context():
 
         def setUp(self):
             """Make demo data."""
+
             with app.app_context():
                 Cupcake.query.delete()
 
@@ -72,8 +73,9 @@ with app.app_context():
 
         def test_get_cupcake(self):
             with app.test_client() as client:
+                cupcake = Cupcake.query.get(self.cupcake.id)
                 url = f"/api/cupcakes/{self.cupcake.id}"
-                resp = client.get(url)
+                resp = self.client.get(url)
 
                 self.assertEqual(resp.status_code, 200)
                 data = resp.json
@@ -142,6 +144,7 @@ with app.app_context():
 
         def test_delete_cupcake(self):
             with app.test_client() as client:
+                
                 url = f"/api/cupcakes/{self.cupcake.id}"
                 resp = client.delete(url)
 
@@ -150,7 +153,7 @@ with app.app_context():
                 data = resp.json
                 self.assertEqual(data, {"message": "Deleted"})
 
-                self.assertEqual(Cupcake.query.count(), 0)
+                self.assertEqual(Cupcake.session.count(), 0)
 
         def test_delete_cupcake_missing(self):
             with app.test_client() as client:

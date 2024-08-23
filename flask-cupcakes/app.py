@@ -43,10 +43,11 @@ def create_cupcake():
     data = request.json
     # create new object 
     cupcake = Cupcake(
-        flavor = data['flavor'],
-        rating= data['rating'],
-        size = data['size'],
-        image = data['image'] or None)
+         flavor=data.get('flavor'),
+        rating=data.get('rating'),
+        size=data.get('size'),
+        image=data.get('image') or None
+    )
     
     # staging
    # adds the new cupcake object to the current database session. It’s now staged to be inserted into the database.
@@ -55,7 +56,7 @@ def create_cupcake():
     # saves all the changes made during the session
     db.session.commit()
     # return HTTP status 201 created 
-    return (jsonify(cupcake = cupcake.to_dict()),201)
+    return (jsonify(cupcake=cupcake.to_dict()),201)
 
 # PART 3: Update & Delete Cupcakes 
 @app.route('/api/cupcakes/<int:cupcake_id>', methods=['PATCH'])
@@ -82,5 +83,5 @@ def delete_cupcake(cupcake_id):
 
     return jsonify(message="Deleted")
 
-# if __name__ == "__main__":
-#     app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)
