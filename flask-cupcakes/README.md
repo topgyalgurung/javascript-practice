@@ -30,6 +30,7 @@
     - [x] GET http://127.0.0.1:5000/api/cupcakes
     - [x] GET http://127.0.0.1:5000/api/cupcakes/1
     - [x] POST http://127.0.0.1:5000/api/cupcakes/
+  - [ ] python3 -m unittest -v tests // need more fix
 
 #### Export Settings:
 export FLASK_APP=app
