@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:5000/api";
+const BASE_URL = "http://127.0.0.1:5000/api";
 
 /** given data about a cupcake, generate html */
 
@@ -20,7 +20,7 @@ function generateCupcakeHTML(cupcake) {
 
 async function showInitialCupcakes() {
   const response = await axios.get(`${BASE_URL}/cupcakes`);
-
+  //console.log(response.data);
   for (let cupcakeData of response.data.cupcakes) {
     let newCupcake = $(generateCupcakeHTML(cupcakeData));
     $("#cupcakes-list").append(newCupcake);
@@ -61,3 +61,34 @@ $("#cupcakes-list").on("click", ".delete-button", async function (evt) {
 });
 
 $(showInitialCupcakes);
+
+// async function searchCupcakes(searchTerm) {
+//   try {
+//     const response = await axios.get(`${BASE_URL}/cupcakes`, {
+//       params: { flavor: searchTerm },
+//     });
+//     const cupcakes = response.data.cupcakes;
+//     const $resultsDiv = $("#cupcakes-list");
+//     $resultsDiv.empty();
+//     if (cupcakes.length === 0) {
+//       $resultsDiv.append("<div>No cupcakes found.</div>");
+//     } else {
+//       // Assuming cupcakes is an array of cupcake objects
+//         console.log("cupcake found");
+//         $(generateCupcakeHTML(cupcakes));
+//         $("#cupcakes-list").append(cupcakes);
+//         $("#new-cupcake-form").trigger("reset");
+//         //$resultsDiv.append(`<div>${cupcake.flavor} - ${cupcake.rating}</div>`);
+//       });
+//     }
+//   } catch (error) {
+//     console.error("Error fetching cupcakes:", error);
+//     $("#cupcakes-list").html("<div>An error occurred while searching.</div>");
+//   }
+// }
+
+// $("#search-bar").on("submit", function (event) {
+//   event.preventDefault();
+//   let searchTerm = $("#searchInput").val();
+//   searchCupcakes(searchTerm);
+//});

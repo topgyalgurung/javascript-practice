@@ -2,9 +2,12 @@
 
 from flask import Flask, jsonify, request, render_template
 from models import db, Cupcake, connect_db
+from flask_cors import CORS
 
 # configure extension
 app = Flask(__name__)
+#CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "http://127.0.0.1:5500"}})
 
 # basedir = os.path.abspath(os.path.dirname(__file__))
 # app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///' + os.path.join(basedir, 'cupcakes.db')
@@ -15,14 +18,18 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 connect_db(app)
 
-## PART 2: Listing, Getting & Creating Cupcakes 
 
 @app.route('/')
 def root():
-    return render_template("index.html")
+    message = "hello, world"
+    return render_template("/templates/index.html", message = message)
 
-@app.route('/api/cupcakes')
+@app.route('/api/cupcakes', methods=['GET'])
 def get_all_cupcakes():
+    #search_term = request.args.get('term', '')
+    #query = Cupcake.query
+    #if search_term:
+     #   query = query.filter(Cupcake.flavor.ilike(f'%{search_term}%'))
     cupcakes = Cupcake.query.all()
     serialized_cupcakes = [cupcake.to_dict() for cupcake in cupcakes]
     return jsonify(cupcakes = serialized_cupcakes)
@@ -43,7 +50,7 @@ def create_cupcake():
     data = request.json
     # create new object 
     cupcake = Cupcake(
-         flavor=data.get('flavor'),
+        flavor=data.get('flavor'),
         rating=data.get('rating'),
         size=data.get('size'),
         image=data.get('image') or None
@@ -61,8 +68,9 @@ def create_cupcake():
 # PART 3: Update & Delete Cupcakes 
 @app.route('/api/cupcakes/<int:cupcake_id>', methods=['PATCH'])
 def update_cupcake(cupcake_id):
-    data= request.json
 
+    data= request.json
+    # query the database using sqlalchemy 
     cupcake = Cupcake.query.get_or_404(cupcake_id)
     cupcake.flavor = data['flavor']
     cupcake.rating = data['rating']
@@ -74,14 +82,14 @@ def update_cupcake(cupcake_id):
 
     return jsonify(cupcake=cupcake.to_dict())
 
-@app.route('/api/routes/<int:cupcake_id>',methods=['DELETE'])
+@app.route('/api/cupcakes/<int:cupcake_id>',methods=['DELETE'])
 def delete_cupcake(cupcake_id):
     cupcake = Cupcake.query.get_or_404(cupcake_id)
     
     db.session.delete(cupcake)
     db.session.commit()
 
-    return jsonify(message="Deleted")
+    return jsonify(message="Deleted"),200
 
 if __name__ == "__main__":
     app.run(debug=True)
