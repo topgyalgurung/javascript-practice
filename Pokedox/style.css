@@ -1,0 +1,40 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 100;
+  gap: 0.5rem; /* Optional: adds spacing between the cards */
+}
+
+.card {
+  background-color: gainsboro;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  flex: 1; /* Each card will take equal space */
+  max-width: 300px; /* Optional: restricts the width of each card */
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.card:hover {
+  transform: translateY(-15px) scale(1.05);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  border: 3px solid #4a90e2;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+h2 {
+  text-align: center;
+  color: grey;
+}
+h3 {
+  color: blue;
+}
