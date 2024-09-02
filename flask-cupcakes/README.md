@@ -51,3 +51,13 @@
 #### Export Settings:
 export FLASK_APP=app
 FLASK_DEBUG=True
+
+
+##### TODO:
+- [ ] Add tests to make sure that the GET/PATCH/DELETE routes return a 404 when the cupcake cannot be found.
+- [ ] Add functionality for searching for cupcakes where you can type in a search term, submit to the backend and see a newly filtered list of cupcakes.
+- [ ] Refactor your front-end code to be object-oriented using class methods to fetchAllCupcakes and createCupcakes and instance methods for updating and deleting cupcakes as well as searching for cupcakes.
+- [ ] Refactor your HTML page to render a form created by WTForms.
+- [ ] Enhance your search functionality so that you do not need to wait to submit to filter by flavors.
+- [ ] Add functionality on the front-end to update a cupcake.
+- [ ] Then add another table for ingredients. When you add or edit a cupcake, you can identify what ingredients you need for that cupcake. You should also have a page where you can add or edit ingredients.
