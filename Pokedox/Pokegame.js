@@ -42,3 +42,5 @@ const Pokegame = ({ pokedoxFeatures }) => {
     </div>
   );
 };
+
+// export default Pokegame;

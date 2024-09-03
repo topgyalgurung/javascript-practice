@@ -1,3 +1,9 @@
+//import module
+// import component
+// When using React via a CDN, you don’t need to explicitly import React components
+//  the same way you would in a module-based environment like a Create React App project.
+//  The React and ReactDOM libraries are globally available, so you can directly use them in your script.
+
 const App = () => {
   const pokedoxFeatures = [
     { id: 4, name: "Charmander", type: "fire", base_experience: 62 },
